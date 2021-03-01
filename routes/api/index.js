@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-// const userAPI = rqeuire("./user")
+const userAPI = require("./users");
 
-//  router.use("/user", userAPI)
+router.use("/users", userAPI);
 module.exports = router;
