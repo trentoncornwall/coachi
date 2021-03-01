@@ -2,6 +2,12 @@ import axios from "axios";
 
 export default {
   userCreate: function (body) {
-    return axios.post("/api/users", body);
+    return axios.post("/api/users/register", body);
+  },
+  userLogin: function (body) {
+    return axios.post("/api/users/login", body);
+  },
+  userCheck: function () {
+    return axios.get("/api/users/");
   },
 };

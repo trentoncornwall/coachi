@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import api from "../util/api";
 
 export default function Register() {
-  const [email, setEmail] = useState(null);
+  const [username, setusername] = useState(null);
   const [password, setPassword] = useState(null);
   const [password2, setPassword2] = useState(null);
   const inputName = useRef();
@@ -12,12 +12,10 @@ export default function Register() {
   const submit = (e) => {
     e.preventDefault();
     if (password === password2) {
-      console.log(`Registering ${email}...`);
+      console.log(`Registering ${username}...`);
       console.log(password);
       const data = {
-        first: "testName",
-        last: "testName",
-        email: email,
+        username: username,
         password: password,
       };
       console.log(data);
@@ -32,9 +30,9 @@ export default function Register() {
       <h2>Register</h2>
       <form onSubmit={submit}>
         <input
-          placeholder="email"
+          placeholder="username"
           ref={inputName}
-          onChange={() => setEmail(inputName.current.value)}
+          onChange={() => setusername(inputName.current.value)}
         />
         <input
           placeholder="password"
