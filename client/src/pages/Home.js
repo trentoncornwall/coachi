@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import SignIn from "../components/SignIn/";
 import api from "../util/api";
 
 export default function Home() {
@@ -19,7 +20,8 @@ export default function Home() {
 
   return (
     <div>
-      <form onSubmit={submit}>
+      <SignIn />
+      {/* <form onSubmit={submit}>
         <input
           ref={inputName}
           onChange={() => setusername(inputName.current.value)}
@@ -31,7 +33,9 @@ export default function Home() {
         />
         <button> button </button>
       </form>
-      <button onClick={() => api.userCheck()}> check user </button>
+      <button onClick={() => api.userCheck().then((user) => console.log(user))}>
+        check user
+      </button> */}
     </div>
   );
 }

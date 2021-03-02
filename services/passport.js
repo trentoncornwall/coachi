@@ -9,7 +9,7 @@ module.exports = function (passport) {
         if (!user) return done(null, false);
         bcrypt.compare(password, user.password, (err, result) => {
           if (err) throw err;
-          if (result === true) {
+          if (result) {
             return done(null, user);
           } else {
             return done(null, false);
@@ -22,10 +22,15 @@ module.exports = function (passport) {
   passport.serializeUser((user, cb) => {
     cb(null, user.id);
   });
+
+  // packages user in req
   passport.deserializeUser((id, cb) => {
     User.findOne({ _id: id }, (err, user) => {
+      const { _id, permission, username } = user;
       const userInformation = {
-        username: user.username,
+        id: _id,
+        permission: permission,
+        username: username,
       };
       cb(err, userInformation);
     });

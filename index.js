@@ -2,9 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const passport = require("passport");
-const cors = require("cors");
-const passportLocal = require("passport-local").Strategy;
-const bcrypt = require("bcryptjs");
+const morgan = require("morgan");
 const session = require("express-session");
 const routes = require("./routes");
 const cookieParser = require("cookie-parser");
@@ -12,14 +10,9 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 
 //middleware
+app.use(morgan("tiny"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-// app.use(
-//   cors({
-//     origin: "http://localhost:3000", // <-- location of the react app were connecting to
-//     credentials: true,
-//   })
-// );
 app.use(
   session({
     secret: "abcd123!!",

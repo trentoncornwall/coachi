@@ -4,8 +4,7 @@ const bcrypt = require("bcryptjs");
 
 module.exports = {
   register: (req, res) => {
-    console.log("POST -> /api/users/register/...");
-    console.log(req.body);
+    // console.log(req.body);
 
     User.findOne({ username: req.body.username })
       .then(async (user) => {
@@ -30,9 +29,6 @@ module.exports = {
   },
 
   login: (req, res, next) => {
-    console.log("/api/users/login...");
-    console.log(req.body);
-
     passport.authenticate("local", (err, user, info) => {
       if (err) throw err;
       if (!user) res.send("No User Exists");
@@ -47,7 +43,6 @@ module.exports = {
   },
 
   user: (req, res) => {
-    console.log(req.user);
     res.send(req.user);
   },
 };
