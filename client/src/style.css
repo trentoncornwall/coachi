@@ -1,4 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Barlow:wght@100;200;300;400;600&display=swap");
 .app {
   font-family: "Barlow", sans-serif;
+  font-size: 18px;
+}
+/* 
+BLACK:  #1A1B25
+WHITE:  #FBFFFE
+STEEL BLUE: #427AA1
+GREEN: #679436
+ACID: A5BE00
+
+
+*/
+:root {
+  --dark: #1a1b25;
+  --light: #f7f5f5;
+  --white: #ffffff;
+  --primary: #dddddf;
+  --secondary: #f0c808;
+  --accent: #f45b69;
+  background-color: var(--white);
 }
