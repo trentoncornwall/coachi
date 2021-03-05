@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 
 module.exports = {
   register: (req, res) => {
-    // console.log(req.body);
+    console.log(req.body);
 
     User.findOne({ username: req.body.username })
       .then(async (user) => {
@@ -14,11 +14,13 @@ module.exports = {
         }
 
         //user setup
-        const { username, password } = req.body;
+        const { username, password, first, last } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = {
           username: username,
           password: hashedPassword,
+          first: first,
+          last: last,
         };
 
         User.create(newUser)

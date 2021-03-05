@@ -1,9 +1,8 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
+import api from "../../util/api";
 
 export default function Register() {
-  //TODO add API to register new users
-
   const [username, setUsername] = useState();
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
@@ -17,13 +16,25 @@ export default function Register() {
 
   const registerUser = (e) => {
     e.preventDefault();
-    console.log({
-      username: username,
-      first: firstName,
-      last: lastName,
-      password: password,
-      verify: verify,
-    });
+
+    //TODO validations:
+    // ! DB User validation error handling result.data.?errors
+    // ! pasword length
+    // ! password complexity
+
+    if (password === verify) {
+      const newUser = {
+        username: username,
+        first: firstName,
+        last: lastName,
+        password: password,
+      };
+
+      api
+        .userCreate(newUser)
+        .then((result) => console.log(result))
+        .catch((err) => console.log(err));
+    }
   };
 
   return (

@@ -1,7 +1,10 @@
 import React, { useState, useRef } from "react";
+import { useUserContext } from "../../util/GlobalState";
 import styled from "styled-components";
+import api from "../../util/api";
 
-export default function Login() {
+export default function Login({ setLoggedIn }) {
+  const [state, dispatch] = useUserContext();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const inputUsername = useRef();
@@ -9,9 +12,13 @@ export default function Login() {
 
   const SignIn = (e) => {
     e.preventDefault();
-    console.log(username, password);
+    // TODO add error handling specifics
+    // TODO update global state once implemented
 
-    // TODO  add API to sign in
+    api
+      .userLogin({ username, password })
+      .then((result) => setLoggedIn(true))
+      .catch((err) => console.log(err));
   };
   return (
     <>
@@ -33,6 +40,7 @@ export default function Login() {
     </>
   );
 }
+
 const LoginForm = styled.form`
   display: flex;
   justify-content: center;
