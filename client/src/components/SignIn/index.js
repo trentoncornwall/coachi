@@ -1,26 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useUserContext } from "../../util/GlobalState";
-import api from "../../util/api";
+import React, { useState } from "react";
 import Login from "./Login";
 import Switch from "./Switch";
 import Register from "./Register";
 import styled from "styled-components";
 
-export default function SignIn() {
+export default function SignIn({ setAuth }) {
   const [register, setRegister] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [state, dispatch] = useUserContext();
-
-  useEffect(() => {
-    // TODO implement global state
-    api.userCheck().then(({ data }) => {
-      dispatch({ type: "authenticate" });
-      console.log(data);
-    });
-
-    //global state
-    console.log("useEffect ", state);
-  }, [loggedIn]);
+  const [newUser, setNewUser] = useState(false);
 
   const createAccount = () => {
     setRegister(!register);
@@ -29,7 +15,11 @@ export default function SignIn() {
   return (
     <>
       <Panel>
-        {register ? <Register /> : <Login setLoggedIn={setLoggedIn} />}
+        {register ? (
+          <Register changeView={createAccount} setNewUser={setNewUser} />
+        ) : (
+          <Login setAuth={setAuth} newUser={newUser} />
+        )}
       </Panel>
       <NewUserPanel>
         <Switch register={register} changeView={createAccount} />

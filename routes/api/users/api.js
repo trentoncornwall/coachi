@@ -10,7 +10,7 @@ module.exports = {
       .then(async (user) => {
         // user already exists
         if (user) {
-          return res.send("user alredy exists");
+          return res.send("Username already taken.");
         }
 
         //user setup
@@ -24,7 +24,7 @@ module.exports = {
         };
 
         User.create(newUser)
-          .then((user) => res.send(user))
+          .then((user) => res.send("Success"))
           .catch((err) => res.send(err));
       })
       .catch((err) => res.send(err));
@@ -33,11 +33,11 @@ module.exports = {
   login: (req, res, next) => {
     passport.authenticate("local", (err, user, info) => {
       if (err) throw err;
-      if (!user) res.send("No User Exists");
+      if (!user) res.send("Failed");
       else {
         req.logIn(user, (err) => {
           if (err) throw err;
-          res.send("Successfully Authenticated");
+          res.send("Success");
           console.log(req.user);
         });
       }

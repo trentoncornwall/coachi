@@ -1,25 +1,34 @@
-import React, { useState, useRef } from "react";
-import { useUserContext } from "../../util/GlobalState";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import api from "../../util/api";
 
-export default function Login({ setLoggedIn }) {
-  const [state, dispatch] = useUserContext();
+export default function Login({ setAuth, newUser }) {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
+  const [toastMessage, setToastMessage] = useState();
   const inputUsername = useRef();
   const inputPassword = useRef();
 
   const SignIn = (e) => {
     e.preventDefault();
-    // TODO add error handling specifics
-    // TODO update global state once implemented
 
-    api
-      .userLogin({ username, password })
-      .then((result) => setLoggedIn(true))
-      .catch((err) => console.log(err));
+    const user = { username, password };
+
+    api.userLogin(user).then((result) => {
+      switch (result.data) {
+        case "Success":
+          setAuth(true);
+          break;
+        case "Failed":
+          setToastMessage("Incorrect username or password");
+          break;
+      }
+    });
   };
+
+  useEffect(() => {
+    if (newUser) setToastMessage("New account created.");
+  }, [newUser]);
   return (
     <>
       <LoginForm onSubmit={SignIn}>
@@ -36,6 +45,7 @@ export default function Login({ setLoggedIn }) {
           onChange={() => setPassword(inputPassword.current.value)}
         />
         <Button type="submit">Submit</Button>
+        {toastMessage && <ToastMessage>{toastMessage}</ToastMessage>}
       </LoginForm>
     </>
   );
@@ -80,5 +90,18 @@ const Button = styled.button`
 
 const Header = styled.h1`
   margin: 15px 0px;
+  color: var(--dark);
+`;
+
+const ToastMessage = styled.div`
+  width: 100%;
+  max-width: 21.5rem;
+  height: 2em;
+  font-size: 1em;
+  margin: 0px 0px 15px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
   color: var(--dark);
 `;

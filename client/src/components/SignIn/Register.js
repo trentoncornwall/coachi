@@ -2,12 +2,13 @@ import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import api from "../../util/api";
 
-export default function Register() {
-  const [username, setUsername] = useState();
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
-  const [password, setPassword] = useState();
-  const [verify, setVerify] = useState();
+export default function Register({ changeView, setNewUser }) {
+  const [username, setUsername] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [password, setPassword] = useState("");
+  const [verify, setVerify] = useState("");
+  const [toastMessage, setToastMessage] = useState();
   const inputUsername = useRef();
   const inputFirstName = useRef();
   const inputLastNamme = useRef();
@@ -18,23 +19,47 @@ export default function Register() {
     e.preventDefault();
 
     //TODO validations:
-    // ! DB User validation error handling result.data.?errors
     // ! pasword length
     // ! password complexity
 
     if (password === verify) {
       const newUser = {
-        username: username,
-        first: firstName,
-        last: lastName,
+        username: username.toLowerCase(),
+        first: firstName.toLowerCase(),
+        last: lastName.toLowerCase(),
         password: password,
       };
 
       api
         .userCreate(newUser)
-        .then((result) => console.log(result))
+        .then((result) => {
+          switch (result.data) {
+            case "Username already taken.":
+              clearForm();
+              createToast(result.data);
+              break;
+            case "Success":
+              setNewUser(true);
+              changeView();
+          }
+        })
         .catch((err) => console.log(err));
+    } else {
+      clearForm();
+      createToast("Passwords do not match.");
     }
+  };
+
+  const createToast = (message) => {
+    setToastMessage(message);
+  };
+
+  const clearForm = () => {
+    setUsername("");
+    setFirstName("");
+    setLastName("");
+    setPassword("");
+    setVerify("");
   };
 
   return (
@@ -42,32 +67,38 @@ export default function Register() {
       <Header>Register</Header>
       <Input
         ref={inputUsername}
+        value={username}
         onChange={() => setUsername(inputUsername.current.value)}
         placeholder="username"
       />
       <Input
         ref={inputFirstName}
+        value={firstName}
         onChange={() => setFirstName(inputFirstName.current.value)}
         placeholder="first name"
       />
       <Input
         ref={inputLastNamme}
+        value={lastName}
         onChange={() => setLastName(inputLastNamme.current.value)}
         placeholder="last name"
       />
       <Input
         ref={inputPassword}
+        value={password}
         onChange={() => setPassword(inputPassword.current.value)}
         placeholder="password"
         type="password"
       />
       <Input
         ref={inputVerify}
+        value={verify}
         onChange={() => setVerify(inputVerify.current.value)}
         placeholder="password"
         type="password"
       />
       <Button type="submit">Register</Button>
+      {toastMessage && <ToastMessage>{toastMessage}</ToastMessage>}
     </RegisterForm>
   );
 }
@@ -89,7 +120,7 @@ const Input = styled.input`
   border: 1px var(--dark) solid;
   border-radius: 5px;
   :focus {
-    border: 2px solid var(--secondary);
+    border: 2px solid var(--dark);
   }
 `;
 
@@ -111,5 +142,18 @@ const Button = styled.button`
 
 const Header = styled.h1`
   margin: 15px 0px;
+  color: var(--dark);
+`;
+
+const ToastMessage = styled.div`
+  width: 100%;
+  max-width: 21.5rem;
+  height: 2em;
+  font-size: 1em;
+  margin: 0px 0px 15px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
   color: var(--dark);
 `;
