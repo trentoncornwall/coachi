@@ -13,14 +13,12 @@ export default function Login({ newUser }) {
 
   const SignIn = (e) => {
     e.preventDefault();
+
     const userCreds = { username, password };
 
     auth
       .signin(userCreds)
-      .then(
-        (result) =>
-          !result && setToastMessage("Username or password is incorrect.")
-      );
+      .then(setToastMessage("Incorrect username or password."));
   };
 
   useEffect(() => {

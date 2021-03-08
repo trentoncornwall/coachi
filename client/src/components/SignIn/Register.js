@@ -21,8 +21,8 @@ export default function Register({ changeView, setNewUser }) {
     e.preventDefault();
 
     //TODO validations:
-    // ! pasword length
-    // ! password complexity
+    //TODO pasword length
+    //TODO password complexity
 
     if (password === verify) {
       const newUser = {

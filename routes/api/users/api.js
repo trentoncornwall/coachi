@@ -34,11 +34,12 @@ module.exports = {
     passport.authenticate("local", (err, user, info) => {
       console.log(err);
       if (err) throw err;
-      if (!user) res.send("Failed");
+      if (!user) res.send();
       else {
         req.logIn(user, (err) => {
           if (err) throw err;
-          res.send("Success");
+          const { first, last, username, _id } = user;
+          res.send({ first, last, username, _id });
           console.log(req.user);
         });
       }
