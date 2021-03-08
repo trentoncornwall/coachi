@@ -1,14 +1,11 @@
-import React from "react";
-import api from "../../util/api";
+import React, { useRef } from "react";
+import { useAuth } from "../../util/use-auth";
 export default function Feed() {
-  const logout = () => {
-    api.userLogout();
-    // this.props.history.push("/");
-  };
+  const auth = useAuth();
   return (
     <>
-      <h1>hello ...</h1>
-      <button onClick={logout}>logout</button>
+      <h1>hello ...{auth.user.username}</h1>
+      <button onClick={auth.logout}>logout</button>
     </>
   );
 }

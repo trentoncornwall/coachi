@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
-import api from "../../util/api";
+import { useAuth } from "../../util/use-auth";
 
 export default function Register({ changeView, setNewUser }) {
   const [username, setUsername] = useState("");
@@ -14,6 +14,8 @@ export default function Register({ changeView, setNewUser }) {
   const inputLastNamme = useRef();
   const inputPassword = useRef();
   const inputVerify = useRef();
+
+  const auth = useAuth();
 
   const registerUser = (e) => {
     e.preventDefault();
@@ -30,28 +32,20 @@ export default function Register({ changeView, setNewUser }) {
         password: password,
       };
 
-      api
-        .userCreate(newUser)
-        .then((result) => {
-          switch (result.data) {
-            case "Username already taken.":
-              clearForm();
-              createToast(result.data);
-              break;
-            case "Success":
-              setNewUser(true);
-              changeView();
-          }
-        })
-        .catch((err) => console.log(err));
+      auth.signup(newUser).then((result) => {
+        switch (result) {
+          case "Success":
+            setNewUser(true);
+            changeView();
+          case "Username already taken":
+            clearForm();
+            setToastMessage(result.data);
+        }
+      });
     } else {
       clearForm();
-      createToast("Passwords do not match.");
+      setToastMessage("Passwords do not match.");
     }
-  };
-
-  const createToast = (message) => {
-    setToastMessage(message);
   };
 
   const clearForm = () => {

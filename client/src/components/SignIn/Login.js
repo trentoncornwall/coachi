@@ -1,34 +1,32 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useAuth } from "../../util/use-auth";
 import styled from "styled-components";
-import api from "../../util/api";
 
-export default function Login({ setAuth, newUser }) {
+export default function Login({ newUser }) {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [toastMessage, setToastMessage] = useState();
   const inputUsername = useRef();
   const inputPassword = useRef();
 
+  const auth = useAuth();
+
   const SignIn = (e) => {
     e.preventDefault();
+    const userCreds = { username, password };
 
-    const user = { username, password };
-
-    api.userLogin(user).then((result) => {
-      switch (result.data) {
-        case "Success":
-          setAuth(true);
-          break;
-        case "Failed":
-          setToastMessage("Incorrect username or password");
-          break;
-      }
-    });
+    auth
+      .signin(userCreds)
+      .then(
+        (result) =>
+          !result && setToastMessage("Username or password is incorrect.")
+      );
   };
 
   useEffect(() => {
     if (newUser) setToastMessage("New account created.");
   }, [newUser]);
+
   return (
     <>
       <LoginForm onSubmit={SignIn}>
@@ -36,7 +34,9 @@ export default function Login({ setAuth, newUser }) {
         <Input
           ref={inputUsername}
           placeholder="username"
-          onChange={() => setUsername(inputUsername.current.value)}
+          onChange={() =>
+            setUsername(inputUsername.current.value.toLowerCase())
+          }
         />
         <Input
           ref={inputPassword}
