@@ -44,6 +44,11 @@ module.exports = {
     })(req, res, next);
   },
 
+  logout: (req, res) => {
+    req.logout();
+    res.redirect("/");
+  },
+
   user: (req, res) => {
     res.send(req.user);
   },

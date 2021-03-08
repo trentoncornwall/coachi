@@ -10,4 +10,8 @@ export default {
   userCheck: function () {
     return axios.get("/api/users/");
   },
+
+  userLogout: function () {
+    return axios.get("/api/users/logout");
+  },
 };
