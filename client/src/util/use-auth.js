@@ -1,4 +1,3 @@
-import { set } from "mongoose";
 import React, { useState, useEffect, useContext, createContext } from "react";
 import api from "./api";
 
@@ -13,7 +12,8 @@ export const useAuth = () => {
 };
 
 function useProvideAuth() {
-  const [user, setUser] = useState(null);
+  // ** user includes -> id, username, first, last
+  const [user, setUser] = useState();
 
   const signin = (user) => {
     return api.userLogin(user).then((result) => {
