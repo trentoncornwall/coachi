@@ -6,10 +6,5 @@ import Nav from "../components/Nav";
 export default function Home() {
   const auth = useAuth();
 
-  return (
-    <>
-      <Nav />
-      {!auth.user && <SignIn />}
-    </>
-  );
+  return <></>;
 }

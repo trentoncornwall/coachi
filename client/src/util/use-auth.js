@@ -1,23 +1,29 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
 import api from "./api";
 
+//initilize firebase
 const authContext = createContext();
 
 export function ProvideAuth({ children }) {
   const auth = useProvideAuth();
   return <authContext.Provider value={auth}>{children}</authContext.Provider>;
 }
+
 export const useAuth = () => {
   return useContext(authContext);
 };
 
 function useProvideAuth() {
-  // ** user includes -> id, username, first, last
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
 
   const signin = (user) => {
     return api.userLogin(user).then((result) => {
-      result.data && setUser(result.data);
+      if (result.status === 204) {
+        return false;
+      } else {
+        setUser(result.data);
+        return true;
+      }
     });
   };
 
@@ -33,7 +39,9 @@ function useProvideAuth() {
     });
   };
 
+  //run every time a page loads
   useEffect(() => {
+    console.log(user);
     api.userCheck().then((result) => {
       result.data && setUser(result.data);
     });

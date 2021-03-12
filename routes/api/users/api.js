@@ -32,9 +32,8 @@ module.exports = {
 
   login: (req, res, next) => {
     passport.authenticate("local", (err, user, info) => {
-      console.log(err);
       if (err) throw err;
-      if (!user) res.send();
+      if (!user) res.sendStatus(204);
       else {
         req.logIn(user, (err) => {
           if (err) throw err;
