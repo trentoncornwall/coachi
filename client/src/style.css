@@ -3,7 +3,14 @@
   font-family: "Barlow", sans-serif;
   font-size: 18px;
 }
-
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+html {
+  box-sizing: border-box;
+}
 :root {
   --dark: #1a1b25;
   --light: #f7f5f5;
