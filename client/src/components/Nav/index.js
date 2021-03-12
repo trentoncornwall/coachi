@@ -11,10 +11,8 @@ export default function Nav() {
         <Link to="/">Home</Link>
       </Item>
       <Item>
-        <Link to="/profile">profile</Link>
+        <Link to="/profile">Profile</Link>
       </Item>
-      <Item>Feed</Item>
-      <Item>Post</Item>
       {auth.user ? (
         <Item onClick={auth.logout}>
           <Link to="/">Sign out</Link>
@@ -52,5 +50,9 @@ const Item = styled.li`
   a {
     text-decoration: none;
     color: white;
+    @media only screen and (max-width: 768px) {
+      line-height: 40px;
+      font-size: 25px;
+    }
   }
 `;
