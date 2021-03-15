@@ -11,7 +11,7 @@ export default function Nav() {
       <Item>Feed</Item>
       <Item>Post</Item>
       <UserColumn>
-        {/* // TODO LogGut or SignIn button */}
+        {/* // TODO customize */}
         {auth.user ? (
           <button onClick={auth.logout}>logout</button>
         ) : (
@@ -30,6 +30,7 @@ const NavBar = styled.div`
   justify-content: space-between;
   width: 100vw;
   padding: 1em;
+  border-bottom: 1px var(--dark) solid;
 
   @media only screen and (min-width: 768px) {
     flex-direction: row;
