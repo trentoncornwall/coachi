@@ -35,7 +35,9 @@ const Panel = styled.div`
   width: 30vw;
   min-width: 400px;
   margin: 25vh auto 0;
-  border: 1px var(--dark) solid;
+  -webkit-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.75);
   border-radius: 4px;
 `;
 
@@ -46,7 +48,9 @@ const NewUserPanel = styled.div`
   width: 30vw;
   min-width: 400px;
   margin: 15px auto 0;
-  border: 1px var(--dark) solid;
+  -webkit-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.75);
   border-radius: 4px;
   display: flex;
   justify-content: center;

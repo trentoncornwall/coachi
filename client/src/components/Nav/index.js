@@ -1,23 +1,28 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../util/use-auth";
 
 export default function Nav() {
   const auth = useAuth();
+
   return (
     <NavBar>
-      <Item>Home</Item>
-      <Item>Profile</Item>
-      <Item>Feed</Item>
-      <Item>Post</Item>
-      <UserColumn>
-        {/* // TODO customize */}
-        {auth.user ? (
-          <button onClick={auth.logout}>logout</button>
-        ) : (
-          <button>signin</button>
-        )}
-      </UserColumn>
+      <Item>
+        <Link to="/">Home</Link>
+      </Item>
+      <Item>
+        <Link to="/profile">Profile</Link>
+      </Item>
+      {auth.user ? (
+        <Item onClick={auth.logout}>
+          <Link to="/">Sign out</Link>
+        </Item>
+      ) : (
+        <Item>
+          <Link to="/signin">Sign In</Link>
+        </Item>
+      )}
     </NavBar>
   );
 }
@@ -29,24 +34,26 @@ const NavBar = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 100vw;
-  padding: 1em;
-  border-bottom: 1px var(--dark) solid;
+  padding: 1em 2em;
 
   @media only screen and (min-width: 768px) {
     flex-direction: row;
   }
 `;
 
-const Item = styled.div`
-  flex: 1;
-  text-align: center;
-  margin: 0.25em;
-  padding: 0.25em;
+const Item = styled.li`
   color: white;
-`;
-const UserColumn = styled.div`
-  flex: 1;
-  text-align: center;
-  margin: 0.25em;
-  padding: 0.25em;
+  list-style: none;
+  :hover {
+    font-weight: bold;
+    cursor: pointer;
+  }
+  a {
+    text-decoration: none;
+    color: white;
+    @media only screen and (max-width: 768px) {
+      line-height: 40px;
+      font-size: 25px;
+    }
+  }
 `;

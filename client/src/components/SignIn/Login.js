@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useAuth } from "../../util/use-auth";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 export default function Login({ newUser }) {
   const [username, setUsername] = useState();
@@ -10,15 +11,17 @@ export default function Login({ newUser }) {
   const inputPassword = useRef();
 
   const auth = useAuth();
+  const history = useHistory();
 
   const SignIn = (e) => {
     e.preventDefault();
 
     const userCreds = { username, password };
 
-    auth
-      .signin(userCreds)
-      .then(setToastMessage("Incorrect username or password."));
+    auth.signin(userCreds).then((result) => {
+      if (result) history.push("/");
+      if (!result) setToastMessage("Incorrect username or password.");
+    });
   };
 
   useEffect(() => {
