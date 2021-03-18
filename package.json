@@ -1,7 +1,7 @@
 {
   "name": "coachi",
   "version": "1.0.0",
-  "description": "",
+  "description": "Mentor or be a Mentee in software engineering",
   "main": "index.js",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",

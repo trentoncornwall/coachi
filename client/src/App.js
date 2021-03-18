@@ -5,6 +5,7 @@ import Nav from "./components/Nav";
 import { ProvideAuth } from "./util/use-auth";
 import SignIn from "./components/SignIn";
 import Profile from "./pages/Profile";
+require("./util/filebase");
 
 function App() {
   return (

@@ -1,66 +1,68 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { useAuth } from "../util/use-auth";
-import axios from "axios";
+import firebase from "firebase";
+
 export default function Profile() {
-  const { user } = useAuth();
-  const [image, setImage] = useState();
+  const { user, avatar, addAvatar } = useAuth();
+
   const form = useRef();
-  //TODO Create as a private link only for Auth Users
+  //TODO -  redirect or restrict pathing to this compontant based off of AUTH
+  //TODO -  account for image types, png && jpeg
+  //TODO -  reduce image quality or make the images small for storage purposes
+  //TODO -  add image croping for avatar
+  //TODO -  handle errors more gracefully
 
-  const updateProfile = () => {
-    console.log(form);
+  const imageUpload = (event) => {
+    const file = event.target.files[0];
+
+    //* firebase solution:
+    const storageRef = firebase.storage().ref();
+
+    // Uploads to avatar/USERID.jpg
+    const uploadTask = storageRef.child(`avatar/${user.id}.jpg`).put(file);
+
+    //preforms uploads and listens for snapshot, returns urls
+    uploadTask.on(
+      "state_changed",
+      ((snapshot) => {
+        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Upload is " + progress + "% done");
+      },
+      (error) => {
+        switch (error.code) {
+          case "storage/unauthorized":
+            // User doesn't have permission to access the object
+            break;
+          case "storage/canceled":
+            // User canceled the upload
+            break;
+          case "storage/unknown":
+            // Unknown error occurred, inspect error.serverResponse
+            break;
+        }
+      },
+      () => {
+        uploadTask.snapshot.ref
+          .getDownloadURL()
+          .then((downloadURL) => addAvatar(downloadURL));
+      })
+    );
   };
 
-  const fileUpload = (e) => {
-    e.preventDefault();
-    const fileReader = new FileReader();
-    fileReader.onload = () => {
-      console.log(fileReader.result);
-      setImage(fileReader.result);
-    };
-    fileReader.readAsDataURL(e.target.files[0]);
-    // setImage(e.target.files[0]);
-    // uploadimage(e.target.files[0]);
-  };
-
-  // const uploadimage = (file) => {
-  //   console.log(file, file.name);
-  //   let data = new FormData();
-  //   data.set("image", file, file.name);
-  //   axios
-  //     .put("/api/users", data, {
-  //       headers: {
-  //         accept: "application/json",
-  //         "Accept-Language": "en-US,en;q=0.8",
-  //         "Content-Type": "multipart/form-data",
-  //       },
-  //     })
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       const fileReader = new FileReader();
-  //       fileReader.onload = () => {
-  //         console.log(fileReader.result);
-  //         setImage(fileReader.result);
-  //       };
-  //       fileReader.readAsDataURL(res.data);
-  //       // setImage(res.data.originalname.match(/\.(jpeg|jpg|png)$/));
-  //     });
-  // };
-  // return <p> hello world</p>;
   return user ? (
     <Panel>
-      {/* {console.log(user)} */}
-      <ProfileForm ref={form} onSubmit={updateProfile}>
+      {console.log(user, avatar)}
+      <ProfileForm ref={form}>
         <PanelHeader>{user.username}</PanelHeader>
-        {image && <img src={image} />}
+
         <Row>
           <label>photo</label>
           <Input
             type="file"
             name="photo"
             accept=".png, .jpg, .jpeg"
-            onChange={fileUpload}
+            onChange={imageUpload}
           />
         </Row>
         <Row>

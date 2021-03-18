@@ -6,6 +6,7 @@
 /coverage
 
 /build
+/uploads
 
 .DS_Store
 .env.local

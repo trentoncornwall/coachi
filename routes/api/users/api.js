@@ -47,15 +47,10 @@ module.exports = {
 
   logout: (req, res) => {
     req.logout();
-    res.redirect("/");
+    res.sendStatus(200);
   },
 
   user: (req, res) => {
     res.send(req.user);
-  },
-
-  update: (req, res) => {
-    console.log(req.file);
-    res.send(req.file);
   },
 };
