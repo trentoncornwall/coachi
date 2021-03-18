@@ -53,7 +53,7 @@ export default function Profile() {
 
   return user ? (
     <Panel>
-      {console.log(user, avatar)}
+      {/* {console.log(user, avatar)} */}
       <ProfileForm ref={form}>
         <PanelHeader>{user.username}</PanelHeader>
         <Row>
@@ -97,7 +97,7 @@ const Panel = styled.div`
   background-color: var(--light);
   height: auto;
   max-width: 900px;
-  margin: 10vh auto;
+  margin: 5vh auto;
   -webkit-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.75);

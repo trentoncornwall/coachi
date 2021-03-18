@@ -1,16 +1,18 @@
 import React from "react";
 import styled from "styled-components";
+import placeholder from "../images/avatar_placeholder.png";
 
 export default function Avatar({ size, image }) {
+  const avatar = image || placeholder;
   switch (size) {
     case "large":
-      return <Lrg src={image} />;
+      return <Lrg src={avatar} />;
 
     case "medium":
-      return <Md src={image} />;
+      return <Md src={avatar} />;
 
     case "small":
-      return <Sm src={image} />;
+      return <Sm src={avatar} />;
   }
 }
 

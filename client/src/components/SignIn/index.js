@@ -34,7 +34,7 @@ const Panel = styled.div`
   height: auto;
   width: 30vw;
   min-width: 400px;
-  margin: 25vh auto 0;
+  margin: 10vh auto 0;
   -webkit-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.75);

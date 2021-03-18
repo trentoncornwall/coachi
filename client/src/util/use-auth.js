@@ -39,34 +39,26 @@ function useProvideAuth() {
 
   const logout = () => {
     return api.userLogout().then(() => {
+      setAvatar(null);
       setUser(null);
     });
   };
 
+  // -------- AVATAR --------- //
   const getAvatar = (result) => {
-    // console.log("alskdjflkasdjfkljasd");
-
+    //* When the user logs in, it will check load avatar
     const storageRef = firebase.storage().ref();
     const avatarRef = storageRef.child(`avatar/${result._id}.jpg`);
 
-    avatarRef.getDownloadURL().then((url) => setAvatar(url));
+    avatarRef
+      .getDownloadURL()
+      .then((url) => setAvatar(url))
+      .catch((err) => setAvatar(null));
   };
 
   const addAvatar = (imageUrl) => {
     setAvatar(imageUrl);
   };
-
-  // useEffect(() => {
-  //   if (user) {
-  //     const storageRef = firebase.storage().ref();
-  //     const avatarRef = storageRef.child(`avatar/${user.id}`);
-
-  //     avatarRef
-  //       .getDownloadURL()
-  //       .then((url) => setUser({ ...user, avatar: url }));
-  //   }
-  //   // updates user w/ avatar from firebase storage
-  // }, []);
 
   return { user, avatar, signin, signup, logout, addAvatar };
 }
