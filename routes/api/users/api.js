@@ -39,7 +39,7 @@ module.exports = {
           if (err) throw err;
           const { first, last, username, _id } = user;
           res.send({ first, last, username, _id });
-          console.log(req.user);
+          // console.log(req.user);
         });
       }
     })(req, res, next);

@@ -1,7 +1,8 @@
 import React, { useRef, useState } from "react";
-import styled from "styled-components";
 import { useAuth } from "../util/use-auth";
 import firebase from "firebase";
+import styled from "styled-components";
+import Avatar from "../components/Avatar";
 
 export default function Profile() {
   const { user, avatar, addAvatar } = useAuth();
@@ -55,10 +56,12 @@ export default function Profile() {
       {console.log(user, avatar)}
       <ProfileForm ref={form}>
         <PanelHeader>{user.username}</PanelHeader>
-
         <Row>
-          <label>photo</label>
-          <Input
+          <Avatar size="large" image={avatar} />
+        </Row>
+        <Row>
+          <label>Photo</label>
+          <UploadEl
             type="file"
             name="photo"
             accept=".png, .jpg, .jpeg"
@@ -78,6 +81,18 @@ export default function Profile() {
   );
 }
 
+const PanelHeader = styled.div`
+  color: white;
+  display: flex;
+  padding: 10px;
+  flex-direction: column;
+  align-items: center;
+  font-size: 2rem;
+  width: 100%;
+  background-color: var(--accent);
+  margin-bottom: 2rem;
+`;
+
 const Panel = styled.div`
   background-color: var(--light);
   height: auto;
@@ -90,16 +105,20 @@ const Panel = styled.div`
   overflow: hidden;
 `;
 
-const PanelHeader = styled.div`
-  color: white;
-  display: flex;
-  padding: 10px;
-  flex-direction: column;
-  align-items: center;
-  font-size: 2rem;
-  width: 100%;
-  background-color: var(--accent);
-  margin-bottom: 2rem;
+const UploadEl = styled.input`
+  display: block;
+  max-width: 20rem;
+  height: 2rem;
+  cursor: pointer;
+  padding: 0px 12px;
+  ::file-selector-button {
+    margin-right: 15px;
+    font-size: 1em;
+    padding: 5px;
+    border: 1px var(--dark) solid;
+    border-radius: 5px;
+    background-color: var(--white);
+  }
 `;
 
 const Row = styled.div`
