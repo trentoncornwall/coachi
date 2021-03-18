@@ -4,25 +4,25 @@ import firebase from "firebase";
 import styled from "styled-components";
 import Avatar from "../components/Avatar";
 
+//TODO -  About me row
+//TODO -  Languages row
+//TODO -  Github row
+//TODO -  Location row
+//TODO -  redirect or restrict pathing to this compontant based off of AUTH
+//TODO -  account for image types, png && jpeg
+//TODO -  reduce image quality or make the images small for storage purposes
+//TODO -  croping for avatar?
+
 export default function Profile() {
   const { user, avatar, addAvatar } = useAuth();
-
   const form = useRef();
-  //TODO -  redirect or restrict pathing to this compontant based off of AUTH
-  //TODO -  account for image types, png && jpeg
-  //TODO -  reduce image quality or make the images small for storage purposes
-  //TODO -  add image croping for avatar
-  //TODO -  handle errors more gracefully
 
   const imageUpload = (event) => {
     const file = event.target.files[0];
-
     //* firebase solution:
     const storageRef = firebase.storage().ref();
-
     // Uploads to avatar/USERID.jpg
     const uploadTask = storageRef.child(`avatar/${user.id}.jpg`).put(file);
-
     //preforms uploads and listens for snapshot, returns urls
     uploadTask.on(
       "state_changed",
