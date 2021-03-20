@@ -1,18 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import placeholder from "../images/avatar_placeholder.png";
+import firebase from "firebase";
 
-export default function Avatar({ size, image }) {
-  const avatar = image || placeholder;
+/**
+ * @param Size (large, medium, or small) and user.id.
+ * @param uid needs to be user ID from mongo
+ */
+
+export default function Avatar({ size, uid }) {
+  const [image, setImage] = useState(placeholder);
+
+  const checkStorage = (uid) => {
+    const avatarRef = firebase.storage().ref().child(`avatar/${uid}.jpg`);
+
+    avatarRef
+      .getDownloadURL()
+      .then((url) => setImage(url))
+      .catch((err) => setImage(placeholder));
+  };
+
+  useEffect(() => {
+    checkStorage(uid);
+  }, []);
+
   switch (size) {
     case "large":
-      return <Lrg src={avatar} />;
+      return <Lrg src={image} />;
 
     case "medium":
-      return <Md src={avatar} />;
+      return <Md src={image} />;
 
     case "small":
-      return <Sm src={avatar} />;
+      return <Sm src={image} />;
   }
 }
 

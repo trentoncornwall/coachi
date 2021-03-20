@@ -1,9 +1,10 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import { useAuth } from "../util/use-auth";
 import firebase from "firebase";
 import styled from "styled-components";
 import Avatar from "../components/Avatar";
 
+//TODO -  #1 - uploading avatar should rerender state
 //TODO -  About me row
 //TODO -  Languages row
 //TODO -  Github row
@@ -11,19 +12,19 @@ import Avatar from "../components/Avatar";
 //TODO -  redirect or restrict pathing to this compontant based off of AUTH
 //TODO -  account for image types, png && jpeg
 //TODO -  reduce image quality or make the images small for storage purposes
-//TODO -  croping for avatar?
+//TODO -  cropping for avatar?
 
 export default function Profile() {
-  const { user, avatar, addAvatar } = useAuth();
-  const form = useRef();
+  const { user } = useAuth();
 
   const imageUpload = (event) => {
     const file = event.target.files[0];
+
     //* firebase solution:
     const storageRef = firebase.storage().ref();
     // Uploads to avatar/USERID.jpg
-    const uploadTask = storageRef.child(`avatar/${user.id}.jpg`).put(file);
-    //preforms uploads and listens for snapshot, returns urls
+    const uploadTask = storageRef.child(`avatar/${user._id}.jpg`).put(file);
+
     uploadTask.on(
       "state_changed",
       ((snapshot) => {
@@ -44,20 +45,17 @@ export default function Profile() {
         }
       },
       () => {
-        uploadTask.snapshot.ref
-          .getDownloadURL()
-          .then((downloadURL) => addAvatar(downloadURL));
+        // console.log("Upload Completed");
       })
     );
   };
 
   return user ? (
     <Panel>
-      {/* {console.log(user, avatar)} */}
-      <ProfileForm ref={form}>
+      <ProfileForm>
         <PanelHeader>{user.username}</PanelHeader>
         <Row>
-          <Avatar size="large" image={avatar} />
+          <Avatar size="large" uid={user._id} />
         </Row>
         <Row>
           <label>Photo</label>
