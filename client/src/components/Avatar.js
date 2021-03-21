@@ -6,9 +6,10 @@ import firebase from "firebase";
 /**
  * @param Size (large, medium, or small) and user.id.
  * @param uid needs to be user ID from mongo
+ * @param reload while in profile, updates component if user uploads a new photo
  */
 
-export default function Avatar({ size, uid }) {
+export default function Avatar({ size, uid, reload }) {
   const [image, setImage] = useState(placeholder);
 
   const checkStorage = (uid) => {
@@ -22,7 +23,7 @@ export default function Avatar({ size, uid }) {
 
   useEffect(() => {
     checkStorage(uid);
-  }, []);
+  }, [reload]);
 
   switch (size) {
     case "large":

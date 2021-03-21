@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "../util/use-auth";
 import firebase from "firebase";
 import styled from "styled-components";
 import Avatar from "../components/Avatar";
+import ProfileData from "../components/ProfileData";
 
-//TODO -  #1 - uploading avatar should rerender state
 //TODO -  About me row
 //TODO -  Languages row
 //TODO -  Github row
 //TODO -  Location row
+//TODO -  upload error handling
 //TODO -  redirect or restrict pathing to this compontant based off of AUTH
 //TODO -  account for image types, png && jpeg
 //TODO -  reduce image quality or make the images small for storage purposes
@@ -16,6 +17,7 @@ import Avatar from "../components/Avatar";
 
 export default function Profile() {
   const { user } = useAuth();
+  const [reload, setReload] = useState(true);
 
   const imageUpload = (event) => {
     const file = event.target.files[0];
@@ -23,31 +25,12 @@ export default function Profile() {
     //* firebase solution:
     const storageRef = firebase.storage().ref();
     // Uploads to avatar/USERID.jpg
-    const uploadTask = storageRef.child(`avatar/${user._id}.jpg`).put(file);
-
-    uploadTask.on(
-      "state_changed",
-      ((snapshot) => {
-        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log("Upload is " + progress + "% done");
-      },
-      (error) => {
-        switch (error.code) {
-          case "storage/unauthorized":
-            // User doesn't have permission to access the object
-            break;
-          case "storage/canceled":
-            // User canceled the upload
-            break;
-          case "storage/unknown":
-            // Unknown error occurred, inspect error.serverResponse
-            break;
-        }
-      },
-      () => {
-        // console.log("Upload Completed");
-      })
-    );
+    storageRef
+      .child(`avatar/${user._id}.jpg`)
+      .put(file)
+      .then((result) => {
+        if (result.state === "success") setReload(!reload);
+      });
   };
 
   return user ? (
@@ -55,10 +38,9 @@ export default function Profile() {
       <ProfileForm>
         <PanelHeader>{user.username}</PanelHeader>
         <Row>
-          <Avatar size="large" uid={user._id} />
+          <Avatar size="large" uid={user._id} reload={reload} />
         </Row>
         <Row>
-          <label>Photo</label>
           <UploadEl
             type="file"
             name="photo"
@@ -66,12 +48,7 @@ export default function Profile() {
             onChange={imageUpload}
           />
         </Row>
-        <Row>
-          <label>First Name</label> <Input placeholder={user.first}></Input>
-        </Row>
-        <Row>
-          <label>Last Name</label> <Input placeholder={user.last}></Input>
-        </Row>
+        <ProfileData user={user} />
       </ProfileForm>
     </Panel>
   ) : (
