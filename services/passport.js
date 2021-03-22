@@ -27,14 +27,7 @@ module.exports = function (passport) {
   // packages user in req
   passport.deserializeUser((id, cb) => {
     User.findOne({ _id: id }, (err, user) => {
-      const { _id, username, first, last } = user;
-      const userInformation = {
-        _id: _id,
-        username: username,
-        first: first,
-        last: last,
-      };
-      cb(err, userInformation);
+      cb(err, user);
     });
   });
 };

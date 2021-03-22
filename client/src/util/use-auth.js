@@ -41,6 +41,11 @@ function useProvideAuth() {
     });
   };
 
+  const updateUser = () => {
+    return api.userCheck().then((result) => {
+      setUser(result.data);
+    });
+  };
   useEffect(() => {
     console.log("useeffect inside of useAuth");
     const unsubscribe = api.userCheck().then((result) => {
@@ -55,5 +60,5 @@ function useProvideAuth() {
     return () => unsubscribe();
   }, []);
 
-  return { user, signin, signup, logout };
+  return { user, updateUser, signin, signup, logout };
 }

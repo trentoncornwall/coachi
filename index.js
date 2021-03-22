@@ -41,6 +41,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/coachi", {
   useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
 });
 
 app.listen(PORT, () => {

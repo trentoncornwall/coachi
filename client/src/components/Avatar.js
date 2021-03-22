@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import placeholder from "../images/avatar_placeholder.png";
 import firebase from "firebase";
-
+import Loading from "./Loading";
 /**
  * @param Size (large, medium, or small) and user.id.
  * @param uid needs to be user ID from mongo

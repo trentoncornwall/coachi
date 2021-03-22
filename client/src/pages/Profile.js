@@ -5,10 +5,6 @@ import styled from "styled-components";
 import Avatar from "../components/Avatar";
 import ProfileData from "../components/ProfileData";
 
-//TODO -  About me row
-//TODO -  Languages row
-//TODO -  Github row
-//TODO -  Location row
 //TODO -  upload error handling
 //TODO -  redirect or restrict pathing to this compontant based off of AUTH
 //TODO -  account for image types, png && jpeg
@@ -35,21 +31,19 @@ export default function Profile() {
 
   return user ? (
     <Panel>
-      <ProfileForm>
-        <PanelHeader>{user.username}</PanelHeader>
-        <Row>
-          <Avatar size="large" uid={user._id} reload={reload} />
-        </Row>
-        <Row>
-          <UploadEl
-            type="file"
-            name="photo"
-            accept=".png, .jpg, .jpeg"
-            onChange={imageUpload}
-          />
-        </Row>
-        <ProfileData user={user} />
-      </ProfileForm>
+      <PanelHeader>{user.username}</PanelHeader>
+      <Row>
+        <Avatar size="large" uid={user._id} reload={reload} />
+      </Row>
+      <Row>
+        <UploadEl
+          type="file"
+          name="photo"
+          accept=".png, .jpg, .jpeg"
+          onChange={imageUpload}
+        />
+      </Row>
+      <ProfileData user={user} />
     </Panel>
   ) : (
     <p>sign in first</p>
@@ -78,6 +72,9 @@ const Panel = styled.div`
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.75);
   border-radius: 4px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const UploadEl = styled.input`
@@ -114,9 +111,4 @@ const Input = styled.input`
   :focus {
     border: 2px solid var(--secondary);
   }
-`;
-const ProfileForm = styled.form`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
 `;

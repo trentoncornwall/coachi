@@ -37,9 +37,7 @@ module.exports = {
       else {
         req.logIn(user, (err) => {
           if (err) throw err;
-          const { first, last, username, _id } = user;
-          res.send({ first, last, username, _id });
-          // console.log(req.user);
+          res.send(user);
         });
       }
     })(req, res, next);
@@ -52,5 +50,17 @@ module.exports = {
 
   user: (req, res) => {
     res.send(req.user);
+  },
+
+  update: (req, res) => {
+    const user = req.user;
+    const data = req.body;
+    console.log(data);
+
+    User.findOneAndUpdate({ _id: user._id }, data, {
+      new: true,
+    })
+      .then((result) => res.sendStatus(200))
+      .catch((err) => console.log(err));
   },
 };

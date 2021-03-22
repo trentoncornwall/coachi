@@ -12,10 +12,10 @@ html {
   box-sizing: border-box;
 }
 :root {
-  --dark: #1a1b25;
-  --light: #f7f5f5;
+  --dark: #272831;
+  --light: #f8f8f8;
   --white: #ffffff;
-  --primary: #0059fd;
+  --primary: #326edf;
   --secondary: #f0c808;
   --accent: #f45b69;
   background-color: var(--white);
