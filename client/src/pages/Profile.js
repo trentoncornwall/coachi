@@ -100,15 +100,3 @@ const Row = styled.div`
   display: flex;
   margin-bottom: 15px;
 `;
-const Input = styled.input`
-  width: 100%;
-  max-width: 20rem;
-  height: 2em;
-  padding: 0px 10px;
-  font-size: 1em;
-  border: 1px var(--dark) solid;
-  border-radius: 5px;
-  :focus {
-    border: 2px solid var(--secondary);
-  }
-`;

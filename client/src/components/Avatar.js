@@ -10,7 +10,7 @@ import Loading from "./Loading";
  */
 
 export default function Avatar({ size, uid, reload }) {
-  const [image, setImage] = useState(placeholder);
+  const [image, setImage] = useState(null);
 
   const checkStorage = (uid) => {
     const avatarRef = firebase.storage().ref().child(`avatar/${uid}.jpg`);
@@ -27,7 +27,13 @@ export default function Avatar({ size, uid, reload }) {
 
   switch (size) {
     case "large":
-      return <Lrg src={image} />;
+      return image ? (
+        <Lrg src={image} />
+      ) : (
+        <LoadingDiv>
+          <Loading type="bubbles" color="var(--accent)" />
+        </LoadingDiv>
+      );
 
     case "medium":
       return <Md src={image} />;
@@ -36,6 +42,17 @@ export default function Avatar({ size, uid, reload }) {
       return <Sm src={image} />;
   }
 }
+
+const LoadingDiv = styled.div`
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 2px var(--accent) solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+`;
 
 const Lrg = styled.img`
   width: 200px;

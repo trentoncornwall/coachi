@@ -20,6 +20,7 @@ export default function ProfileData({ user }) {
   const websiteInput = useRef();
   const descriptionInput = useRef();
 
+  //* checks if the user info exists already
   const [info, setInfo] = useState({
     github: user?.github || "",
     linkedin: user?.linkedin || "",
@@ -29,7 +30,6 @@ export default function ProfileData({ user }) {
 
   const updateProfile = (e) => {
     e.preventDefault();
-
     api.userUpdate(info).then((res) => updateUser());
   };
 
