@@ -34,12 +34,7 @@ export default function Avatar({ size, uid, reload }) {
         <Lrg src={image} />
       ) : (
         <LoadingDivLrg>
-          <Loading
-            type="bubbles"
-            color="var(--accent)"
-            height="200"
-            width="200"
-          />
+          <Loading type="bubbles" color="white" height="200px" width="200px" />
         </LoadingDivLrg>
       );
 
@@ -48,12 +43,7 @@ export default function Avatar({ size, uid, reload }) {
         <Md src={image} />
       ) : (
         <LoadingDivMd>
-          <Loading
-            type="bubbles"
-            color="var(--accent)"
-            height="150"
-            width="150"
-          />
+          <Loading type="bubbles" color="white" height="150px" width="150px" />
         </LoadingDivMd>
       );
 
@@ -62,18 +52,14 @@ export default function Avatar({ size, uid, reload }) {
         <Sm src={image} />
       ) : (
         <LoadingDivSm>
-          <Loading
-            type="bubbles"
-            color="var(--accent)"
-            height="100"
-            width="100"
-          />
+          <Loading type="bubbles" color="white" height="100px" width="100px" />
         </LoadingDivSm>
       );
   }
 }
 
 const LoadingDivLrg = styled.div`
+  background-color: var(--accent);
   width: 200px;
   height: 200px;
   border-radius: 50%;
