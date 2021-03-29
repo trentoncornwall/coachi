@@ -21,7 +21,6 @@ function useProvideAuth() {
       if (result.status === 204) {
         return false;
       } else {
-        console.log(result.data);
         setUser(result.data);
 
         return true;
@@ -47,7 +46,6 @@ function useProvideAuth() {
     });
   };
   useEffect(() => {
-    console.log("useeffect inside of useAuth");
     const unsubscribe = api.userCheck().then((result) => {
       console.log(result.data);
       if (result.data) {

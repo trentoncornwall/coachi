@@ -16,4 +16,7 @@ export default {
   userUpdate: function (data) {
     return axios.put("/api/users/", data);
   },
+  mentors: () => {
+    return axios.get("/api/mentors/");
+  },
 };

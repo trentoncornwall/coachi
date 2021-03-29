@@ -1,10 +1,10 @@
 import React from "react";
-import { useAuth } from "../util/use-auth";
-import SignIn from "../components/SignIn/";
-import Nav from "../components/Nav";
+import Mentor from "../components/Mentor";
 
 export default function Home() {
-  const auth = useAuth();
-
-  return <></>;
+  return (
+    <>
+      <Mentor />
+    </>
+  );
 }

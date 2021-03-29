@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
+  mentor: { type: Boolean, default: false },
   permission: { type: Number, default: 0 },
   first: { type: String, required: true },
   last: { type: String, required: true },

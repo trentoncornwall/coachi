@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import api from "../../util/api";
 import { useAuth } from "../../util/use-auth";
+import Checkbox from "@material-ui/core/Checkbox";
+import { set } from "mongoose";
 
 /**
  *
@@ -9,7 +11,6 @@ import { useAuth } from "../../util/use-auth";
  * TODO -  About me textarea
  * TODO -  Languages row
  * TODO -  Location row
- * TODO -  If section has data, display w/ edit button or input field
  */
 
 export default function ProfileData({ user }) {
@@ -22,6 +23,7 @@ export default function ProfileData({ user }) {
 
   //* checks if the user info exists already
   const [info, setInfo] = useState({
+    mentor: user.mentor,
     github: user?.github || "",
     linkedin: user?.linkedin || "",
     website: user?.website || "",
@@ -36,14 +38,25 @@ export default function ProfileData({ user }) {
   return (
     <Form onSubmit={updateProfile} ref={formEl}>
       <Row>
+        <Label>
+          Display Profile:{" "}
+          <Checkbox
+            checked={info.mentor}
+            onChange={() => setInfo({ ...info, mentor: !info.mentor })}
+            color="secondary"
+            inputProps={{ "aria-label": "secondary checkbox" }}
+          />
+        </Label>
+      </Row>
+      <Row>
         <Label>Github</Label>{" "}
         <Input
           name="github"
           ref={githubInput}
           value={info.github}
-          onChange={() => {
-            setInfo({ ...info, github: githubInput.current.value });
-          }}
+          onChange={() =>
+            setInfo({ ...info, github: githubInput.current.value })
+          }
         />
       </Row>
       <Row>

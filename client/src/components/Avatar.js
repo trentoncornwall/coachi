@@ -3,11 +3,14 @@ import styled from "styled-components";
 import placeholder from "../images/avatar_placeholder.png";
 import firebase from "firebase";
 import Loading from "./Loading";
+
 /**
  * @param Size (large, medium, or small) and user.id.
  * @param uid needs to be user ID from mongo
  * @param reload while in profile, updates component if user uploads a new photo
  */
+
+//  TODO replace the switch statement with something more readable.
 
 export default function Avatar({ size, uid, reload }) {
   const [image, setImage] = useState(null);
@@ -30,20 +33,47 @@ export default function Avatar({ size, uid, reload }) {
       return image ? (
         <Lrg src={image} />
       ) : (
-        <LoadingDiv>
-          <Loading type="bubbles" color="var(--accent)" />
-        </LoadingDiv>
+        <LoadingDivLrg>
+          <Loading
+            type="bubbles"
+            color="var(--accent)"
+            height="200"
+            width="200"
+          />
+        </LoadingDivLrg>
       );
 
     case "medium":
-      return <Md src={image} />;
+      return image ? (
+        <Md src={image} />
+      ) : (
+        <LoadingDivMd>
+          <Loading
+            type="bubbles"
+            color="var(--accent)"
+            height="150"
+            width="150"
+          />
+        </LoadingDivMd>
+      );
 
     case "small":
-      return <Sm src={image} />;
+      return image ? (
+        <Sm src={image} />
+      ) : (
+        <LoadingDivSm>
+          <Loading
+            type="bubbles"
+            color="var(--accent)"
+            height="100"
+            width="100"
+          />
+        </LoadingDivSm>
+      );
   }
 }
 
-const LoadingDiv = styled.div`
+const LoadingDivLrg = styled.div`
   width: 200px;
   height: 200px;
   border-radius: 50%;
@@ -52,6 +82,16 @@ const LoadingDiv = styled.div`
   justify-content: center;
   align-items: center;
   overflow: hidden;
+`;
+
+const LoadingDivMd = styled(LoadingDivLrg)`
+  width: 150px;
+  height: 150px;
+`;
+
+const LoadingDivSm = styled(LoadingDivLrg)`
+  width: 100px;
+  height: 100px;
 `;
 
 const Lrg = styled.img`
