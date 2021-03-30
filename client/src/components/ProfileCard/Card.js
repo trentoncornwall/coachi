@@ -8,10 +8,10 @@ import MessageIcon from "@material-ui/icons/Message";
 
 //TODO Fix the social media links
 
-export default function MentorCard({ mentor }) {
+export default function Card({ mentor }) {
   console.log(mentor);
   return (
-    <Card>
+    <ContainerCard>
       <Title>
         {mentor.first} {mentor.last}
       </Title>
@@ -41,7 +41,7 @@ export default function MentorCard({ mentor }) {
           <MessageIcon fontSize="large" />
         </Contact>
       </Info>
-    </Card>
+    </ContainerCard>
   );
 }
 
@@ -91,7 +91,7 @@ const AvatarContainer = styled.div`
   top: -4.5em;
 `;
 
-const Card = styled.div`
+const ContainerCard = styled.div`
   height: 350px;
   width: 300px;
   -webkit-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.75);
@@ -101,6 +101,7 @@ const Card = styled.div`
 `;
 
 const Title = styled.div`
+  border-radius: 0px 5px 0px 0px;
   display: flex;
   text-transform: capitalize;
   flex-direction: row-reverse;

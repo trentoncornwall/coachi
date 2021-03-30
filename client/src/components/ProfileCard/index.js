@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import api from "../../util/api";
 import styled from "styled-components";
-import MentorCard from "./MentorCard";
+import Card from "./Card";
 import Loading from "../Loading";
 
-export default function Mentor() {
+// TODO Adjust to take UID as a prop and return that user's card.
+
+export default function ProfileCard() {
   const [mentors, setMentors] = useState(null);
   useEffect(() => {
     api.mentors().then((result) => setMentors(result.data));
@@ -12,7 +14,7 @@ export default function Mentor() {
   return (
     <Container>
       {mentors ? (
-        mentors.map((mentor) => <MentorCard key={mentor._id} mentor={mentor} />)
+        mentors.map((mentor) => <Card key={mentor._id} mentor={mentor} />)
       ) : (
         <Loading />
       )}

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../util/use-auth";
 
+// TODO remove profile and project links and display user name, w/ projects drop down
 export default function Nav() {
   const auth = useAuth();
 
@@ -13,6 +14,9 @@ export default function Nav() {
       </Item>
       <Item>
         <Link to="/profile">Profile</Link>
+      </Item>
+      <Item>
+        <Link to="/projects">Projects</Link>
       </Item>
       {auth.user ? (
         <Item onClick={auth.logout}>

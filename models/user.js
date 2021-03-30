@@ -12,6 +12,7 @@ const userSchema = new Schema({
   linkedin: { type: String, required: false },
   website: { type: String, required: false },
   description: { type: String, required: false },
+  projects: [{ type: Schema.Types.ObjectId, ref: "Project" }],
 });
 
 const User = mongoose.model("User", userSchema);
