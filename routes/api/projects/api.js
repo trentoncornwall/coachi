@@ -6,3 +6,21 @@ module.exports = {
     console.log(req.body);
   },
 };
+
+// createPlan: (req, res) => {
+//   db.Plan.create(req.body.data)
+//     .then(dbPlan => {
+//       return db.User.findOneAndUpdate(
+//         { _id: req.params.id },
+//         { $push: { plans: dbPlan._id } },
+//         { new: true }
+//       );
+//     })
+//     .then(data => {
+//       res.send(data);
+//     })
+//     .catch(err => {
+//       console.log(err);
+//       res.json(err);
+//     });
+// },s

@@ -83,6 +83,7 @@ const LoadingDivSm = styled(LoadingDivLrg)`
 const Lrg = styled.img`
   width: 200px;
   height: 200px;
+  background-color: var(--accent);
   border-radius: 50%;
   border: 2px var(--accent) solid;
 `;

@@ -8,8 +8,11 @@ import MessageIcon from "@material-ui/icons/Message";
 
 //TODO Fix the social media links
 
-export default function Card({ mentor }) {
+export default function Card({ mentor, modal }) {
   console.log(mentor);
+  const Message = () => {
+    modal(true);
+  };
   return (
     <ContainerCard>
       <Title>
@@ -21,23 +24,23 @@ export default function Card({ mentor }) {
       <Info>
         <Row>
           {mentor.github && (
-            <a href={mentor.github}>
+            <a target="_blank" href={"https://" + mentor.github}>
               <GitHubIcon fontSize="large" />
             </a>
           )}
           {mentor.linkedin && (
-            <a href={mentor.linkedin}>
+            <a target="_blank" href={"https://" + mentor.linkedin}>
               <LinkedInIcon fontSize="large" />
             </a>
           )}
           {mentor.website && (
-            <a href={mentor.website}>
+            <a target="_blank" href={"https://" + mentor.website}>
               <LanguageIcon fontSize="large" />
             </a>
           )}
         </Row>
         <Row>{mentor.description}</Row>
-        <Contact>
+        <Contact onClick={Message}>
           <MessageIcon fontSize="large" />
         </Contact>
       </Info>
