@@ -10,6 +10,7 @@ import Loading from "../Loading";
 export default function ProfileCard({ modal }) {
   const [mentors, setMentors] = useState(null);
   const [modal_visiable, setShow] = useState(false);
+  const [messageMentorData, setMessageMentorData] = useState(null);
 
   useEffect(() => {
     api.mentors().then((result) => setMentors(result.data));
@@ -19,12 +20,21 @@ export default function ProfileCard({ modal }) {
     <Container>
       {mentors ? (
         mentors.map((mentor) => (
-          <Card key={mentor._id} mentor={mentor} modal={setShow} />
+          <Card
+            key={mentor._id}
+            mentor={mentor}
+            modal={setShow}
+            message={setMessageMentorData}
+          />
         ))
       ) : (
         <Loading />
       )}
-      <MessageModal show={modal_visiable} setShow={setShow} />
+      <MessageModal
+        show={modal_visiable}
+        setShow={setShow}
+        mentor={messageMentorData}
+      />
     </Container>
   );
 }
@@ -32,7 +42,12 @@ export default function ProfileCard({ modal }) {
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  padding-top: 10rem;
+  padding-top: 5rem;
   display: flex;
   justify-content: center;
+  align-items: center;
+  /* media query 769 */
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;

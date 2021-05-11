@@ -8,9 +8,9 @@ import MessageIcon from "@material-ui/icons/Message";
 
 //TODO Fix the social media links
 
-export default function Card({ mentor, modal }) {
-  console.log(mentor);
+export default function Card({ mentor, modal, message }) {
   const Message = () => {
+    message(mentor);
     modal(true);
   };
   return (
@@ -49,12 +49,14 @@ export default function Card({ mentor, modal }) {
 }
 
 const Contact = styled.div`
-  position: relative;
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 5px;
-  top: 7em;
+  bottom: 4.5em;
+  width: 87%;
+
   background-color: var(--accent);
   color: white;
   border-radius: 7px;
@@ -101,6 +103,7 @@ const ContainerCard = styled.div`
   -moz-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.75);
   border-radius: 4px;
+  margin: 3em;
 `;
 
 const Title = styled.div`
