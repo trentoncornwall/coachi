@@ -5,7 +5,7 @@ import Nav from "./components/Nav";
 import { ProvideAuth } from "./util/use-auth";
 import SignIn from "./components/SignIn";
 import Profile from "./pages/Profile";
-import Projects from "./pages/Projects";
+import Profiles from "./pages/Profiles";
 require("./util/filebase");
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/signin" component={SignIn} />
-          <Route exact path="/projects" component={Projects} />
+          <Route exact path="/profiles" component={Profiles} />
         </div>
       </ProvideAuth>
     </Router>

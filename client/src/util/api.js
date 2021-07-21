@@ -1,22 +1,25 @@
 import axios from "axios";
 
 export default {
-  userCreate: function (body) {
+  userCreate: (body) => {
     return axios.post("/api/users/register", body);
   },
-  userLogin: function (body) {
+  userLogin: (body) => {
     return axios.post("/api/users/login", body);
   },
-  userCheck: function () {
+  userCheck: () => {
     return axios.get("/api/users/");
   },
-  userLogout: function () {
+  userLogout: () => {
     return axios.get("/api/users/logout");
   },
-  userUpdate: function (data) {
+  userUpdate: (data) => {
     return axios.put("/api/users/", data);
   },
   mentors: () => {
     return axios.get("/api/mentors/");
+  },
+  conversationCreate: (body) => {
+    return axios.post("/api/conversation/new", body);
   },
 };
