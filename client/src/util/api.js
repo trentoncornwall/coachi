@@ -19,7 +19,7 @@ export default {
   mentors: () => {
     return axios.get("/api/mentors/");
   },
-  projectCreate: (data) => {
-    return axios.post("/api/projects", data);
+  conversationCreate: (body) => {
+    return axios.post("/api/conversation/new", body);
   },
 };

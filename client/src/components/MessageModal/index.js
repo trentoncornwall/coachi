@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
+import api from "../../util/api";
 
 export default function MessageModal({ show, setShow, mentor }) {
   const [message, setMessage] = useState("");
@@ -14,7 +15,11 @@ export default function MessageModal({ show, setShow, mentor }) {
   };
 
   const SendMessage = () => {
-    console.log(message);
+    api
+      .conversationCreate({ recipient: mentor._id, content: message })
+      .then((result) => {
+        console.log(result);
+      });
   };
 
   return (
