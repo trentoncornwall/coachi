@@ -120,9 +120,13 @@ const Input = styled.input`
   border: 1px solid lightgrey;
   padding: 0.4rem;
   outline: none;
+  min-width: 500px;
   :focus {
     box-shadow: 0 0 3px var(--primary);
     border: 1px solid var(--primary);
+  }
+  @media (max-width: 768px) {
+    min-width: 350px;
   }
 `;
 
