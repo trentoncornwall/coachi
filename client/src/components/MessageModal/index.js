@@ -3,7 +3,7 @@ import styled from "styled-components";
 import api from "../../util/api";
 
 export default function MessageModal({ show, setShow, mentor }) {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("Coming Soon");
   const TextAreaEl = useRef();
 
   useEffect(() => {
@@ -29,13 +29,13 @@ export default function MessageModal({ show, setShow, mentor }) {
           <Title>Messaging {mentor.first}</Title>
           <Body>
             <TextArea
-              value={message}
+              value={"Coming Soon"}
               ref={TextAreaEl}
-              onChange={() => setMessage(TextAreaEl.current.value)}
+              // onChange={() => setMessage(TextAreaEl.current.value)}
             ></TextArea>
             <Buttons>
               <Button onClick={closeModal}>Close</Button>
-              <Button onClick={SendMessage}>Send</Button>
+              {/* <Button onClick={SendMessage}>Send</Button> */}
             </Buttons>
           </Body>
         </MessageCard>
